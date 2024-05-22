@@ -15,11 +15,14 @@ class LIFOCache(BaseCaching):
         if key is None or item is None:
             return
         if key not in self.cache_data:
-            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                discard_key, _ = self.cache_data.popitem(True)
-                print(f"DISCARD: {discard_key}")
+            if (len(self.cache_data) >= BaseCaching.MAX_ITEMS
+                    and key not in self.cache_data):
+                if self.last_key is not None:
+                    print(f"DISCARD: {self.last_key}")
+                    del self.cache_data[self.last_key]
+
             self.cache_data[key] = item
-            self.cache_data.move_to_end(key, last=True)
+            self.last_key = key
 
     def get(self, key):
         """return the value linked to the key in self.cache_data."""

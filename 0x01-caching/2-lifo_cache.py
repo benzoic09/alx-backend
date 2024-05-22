@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
-"""Task 2: LIFO Caching.
-"""
+"""task 2"""
 from collections import OrderedDict
-
 from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
-    """Represents an object that allows storing and
-    retrieving items from a dictionary with a LIFO
-    removal mechanism when the limit is reached.
-    """
+    """LIFOCache class that inherits from BaseCaching and is a
+    LIFO caching system"""
+
     def __init__(self):
-        """Initializes the cache.
-        """
+        """Initialize the class"""
         super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
-        """Adds an item in the cache.
-        """
+        """Adds an item in the cache."""
         if key is None or item is None:
             return
         if key not in self.cache_data:

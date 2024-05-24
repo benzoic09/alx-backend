@@ -19,7 +19,9 @@ class MRUCache(BaseCaching):
             return
 
         if key in self.cache_data:
+            # Remove the existing key before re-adding it to move to the end
             del self.cache_data[key]
+
         self.cache_data[key] = item
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
@@ -33,6 +35,5 @@ class MRUCache(BaseCaching):
             return None
 
         # Move the key to the end to mark it as recently used
-        value = self.cache_data[key]
         self.cache_data.move_to_end(key)
-        return value
+        return self.cache_data[key]

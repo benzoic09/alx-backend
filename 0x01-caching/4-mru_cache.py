@@ -26,7 +26,7 @@ class MRUCache(BaseCaching):
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             # Pop the last item (most recently used)
-            most_recent_key, _ = self.cache_data.popitem(last=True)
+            most_recent_key, _ = self.cache_data.popitem(last=False)
             print(f"DISCARD: {most_recent_key}")
 
     def get(self, key):

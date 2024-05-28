@@ -22,11 +22,9 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale():
     """Determine the best match for supported languages."""
-    # Check if the locale parameter is in the request and if it is valid
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
         return locale
-    # Fallback to the best match for supported languages
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
@@ -39,8 +37,8 @@ users = {
 
 
 def get_user() -> Optional[Dict]:
-    """Returns a user dictionary or None if ID cannot be found
-    or not provided."""
+    """Returns a user dictionary or None if ID cannot
+    be found or not provided."""
     user_id = request.args.get('login_as')
     if user_id and user_id.isdigit():
         return users.get(int(user_id))
@@ -56,7 +54,8 @@ def before_request():
 @app.route('/')
 def index():
     """Basic HTML template"""
-    return render_template('5-index.html')
+    locale = get_locale()
+    return render_template('5-index.html', locale=locale)
 
 
 if __name__ == '__main__':

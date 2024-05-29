@@ -39,9 +39,9 @@ users = {
 def get_user() -> Optional[Dict]:
     """Returns a user dictionary or None if ID cannot
     be found or not provided."""
-    user_id = request.args.get('login_as')
-    if user_id and user_id.isdigit():
-        return users.get(int(user_id))
+    login_id = request.args.get('login_as')
+    if login_id:
+        return users.get(int(login_id))
     return None
 
 
@@ -54,8 +54,7 @@ def before_request():
 @app.route('/')
 def index():
     """Basic HTML template"""
-    locale = get_locale()
-    return render_template('5-index.html', locale=locale)
+    return render_template('5-index.html')
 
 
 if __name__ == '__main__':
